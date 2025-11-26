@@ -12,7 +12,8 @@ brokers=["iot.eclipse.org",
 broker=brokers[1]
 port=1883
 
-client = mqtt.Client("IoT_MB_4091_" + str(uuid.uuid4()), clean_session=True)
+# client = mqtt.Client("IoT_MB_4091_" + str(uuid.uuid4()), clean_session = False)
+client = mqtt.Client("IoT_MB_4091_subscriber", clean_session = False)
 
 def on_log(client, userdata, level, buf):
         print("log: " + buf)

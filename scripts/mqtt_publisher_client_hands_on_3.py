@@ -12,7 +12,8 @@ brokers=["iot.eclipse.org",
 broker=brokers[1]
 port=1883
 
-client = mqtt.Client("IoT_MB_4091_" + str(uuid.uuid4()), clean_session = True)
+# client = mqtt.Client("IoT_MB_4091_" + str(uuid.uuid4()), clean_session = False)
+client = mqtt.Client("IoT_MB_4091_publisher", clean_session = False)
 
 def on_log(client, userdata, level, buf):
         print("log: " + buf)
@@ -44,8 +45,9 @@ publisher_topic = "iot/home_MB/sensor_4091"
 client.loop_start()
 result = client.publish(publisher_topic, datetime.now().strftime("%H:%M:%S") + 
                         " This is a test message with: " +
-                        "clean session set to True, qos 0 and retain False", 
-                        qos = 0, retain = False)
+                        "clean session set to False, "
+                        "qos 1 for the publisher, 0 for the subscriber and retain False", 
+                        qos = 1, retain = False)
 result.wait_for_publish()
 client.loop_stop()
 
